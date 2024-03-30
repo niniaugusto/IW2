@@ -30,9 +30,9 @@ function lampadaquebrada(){
 }
 
 function ligadesliga() {
-    if (bduplo.textContent=='ligar'){
+    if (bduplo.textContent=='LIGAR'){
         lampadaligar();
-        bduplo.textContent='desligar';
+        bduplo.textContent='DESLIGAR';
     } 
     
     else{
