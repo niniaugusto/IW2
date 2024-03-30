@@ -1,9 +1,19 @@
-header,
-main{
+
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100%;
 }
-button{
-    width: 80px;
+
+
+body {
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    text-align: center;
+    
 }
