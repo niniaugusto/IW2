@@ -37,7 +37,7 @@ function ligadesliga() {
     
     else{
         lampadadesligada();
-        bduplo.textContent='ligar';
+        bduplo.textContent='LIGAR';
     }
     texto.innerHTML ="LIGA/DESLIGA"
  
