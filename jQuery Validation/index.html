@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JQuery Validation</title>		
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="js/additional-methods.min.js"></script>
+		<script type="text/javascript" src="js/localization/messages_pt_BR.js"></script>
+		
+		<script type="text/javascript">	
+        
+        </script>
+	</head>
+	<body>
+		<div class="container">
+            <h1>Validação de formulários com JQuery Validation</h1>
+			<form name="formCadastro" id="formCadastro" method="post">
+				<div class="row">
+					<label>Nome</label>
+					<input type="text" name="nome" id="nome" class="form-control" />
+				</div>
+				<div class="row">
+					<label>E-mail</label>
+					<input type="email" name="email" id="email" class="form-control" />
+				</div>
+                <div class="row">
+					<label>Cidade</label>
+					<select name="cidade" id="cidade" class="form-control">
+						<option value="">----</option>
+						<option value="RIOGRANDEDASERRA">Rio Grande da Serra</option>
+						<option value="RIBEIRAOPIRES">Ribeirão Pires</option>
+						<option value="MAUA">Mauá</option>
+						<option value="SANTOANDRE">Santo André</option>
+						<option value="SAOCAETANO">São Caetano</option>
+						<option value="SAOPAULO">São Paulo</option>
+					</select>
