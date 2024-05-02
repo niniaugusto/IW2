@@ -11,8 +11,72 @@
 		<script type="text/javascript" src="js/additional-methods.min.js"></script>
 		<script type="text/javascript" src="js/localization/messages_pt_BR.js"></script>
 		
-		<script type="text/javascript">	
-        
+		<script type="text/javascript">
+						
+						jQuery.validator.addMethod("arrobaNoInicio", function(value, element){
+				if (value.indexOf("@") == 0){
+					return true
+				}else{
+					return false
+				}
+			}, "Tem que ter arroba no começo")
+		
+			$(document).ready(function(){
+				$("#formCadastro").validate({
+					rules:{
+						nome: {
+							required: true,
+							maxlength: 100,
+							minlength: 10,
+							minWords: 2
+						},
+						email: {
+							required: true,
+							email: true
+						},
+						cidade: {
+							required: true
+						},
+						idade: {
+							required: true,
+							min: 15,
+							max: 120
+						},
+						peso: {
+							required: true
+						},
+						altura: {
+							required: true
+						},
+                        escola: {
+							required: true
+						},
+						tel: {
+							required: true
+						},
+						instagram: {
+							arrobaNoInicio: true
+						}
+					},
+					submitHandler: function(form){
+						alert("BOA GAROTO!!!")						
+					}
+				})
+			})
+		</script>
+        <script>
+            $(document).ready(function(){
+				var SPMaskBehavior = function (val) {
+					return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+				},
+				spOptions = {
+					onKeyPress: function(val, e, field, options) {
+						field.mask(SPMaskBehavior.apply({}, arguments), options);
+					}
+				};
+
+				$('#tel').mask(SPMaskBehavior, spOptions);
+			});
         </script>
 	</head>
 	<body>
@@ -38,3 +102,62 @@
 						<option value="SAOCAETANO">São Caetano</option>
 						<option value="SAOPAULO">São Paulo</option>
 					</select>
+				</div>
+				<div class="row">
+					<label>Idade</label>
+					<input type="number" name="idade" id="idade" class="form-control" placeholder="25" />
+                </div>
+				<div class="row">
+					<label>Peso</label>
+					<select name="peso" id="peso" class="form-control">
+						<option value="">----</option>
+                        <option value="-50">-50Kg</option>
+                        <option value="50-60">50-60Kg</option>    
+						<option value="60-70">60-70Kg</option>
+                        <option value="70-80">70-80Kg</option>     
+                        <option value="80-90">80-90Kg</option>        
+                        <option value="90-100">90-100Kg</option>
+						<option value="+100">+100Kg</option>						   
+					</select>
+				</div>
+				<div class="row">
+					<label>Altura</label>
+					<select name="altura" id="altura" class="form-control">
+						<option value="">----</option>
+                        <option value="-1,50">-1,50m</option>
+                        <option value="1,50-1,60">1,50m-1,60m</option>    
+						<option value="1,60-1,70">1,60m-1,70m</option>
+                        <option value="1,70-1,80">1,70m-1,80m</option>     
+                        <option value="1,80-1,90">1,80m-1,90m</option>        
+                        <option value="1,90-2,00">1,90m-2,00m</option>
+						<option value="+2,00">+2,00m</option>						   
+					</select>
+				</div>
+				<div class="row">
+                    <label>Escolaridade</label>
+                    <select name="escola" id="escola" class="form-control">
+                        <option value="">----</option>
+                        <option value="FUNDAMENTAL1">Fundamental 1</option>
+                        <option value="FUNDAMENTAL2">Fundamental 2</option>    
+                        <option value="ENSINOMEDIO">Ensino médio</option>
+                        <option value="ENSINOSUPERIOR">Ensino superior</option>     
+                        <option value="MESTRADO">Mestardo</option>        
+                        <option value="DOUTORADO">Doutorado</option>				   
+                    </select>
+                </div>
+				<div class="row">
+					<label>Telefone</label>
+					<input type="text" name="tel" id="tel" class="form-control" placeholder="(11)11111-1111" />
+				</div>
+				<div class="row">
+					<label>Instagram</label>
+					<input type="text" name="instagram" id="instagram" class="form-control" placeholder="@FuladoDeTal" />
+				</div>
+				<div class="row">
+					<input type="submit" name="enviar" id="enviar" class="btn btn-primary form-control" />
+				</div>
+			</form>
+		</div>
+        
+    </body>
+</html>
