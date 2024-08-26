@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Validation</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/additional-methods.min.js"></script>
+    <script type="text/javascript" src="js/localization/messages_pt_BR.js"></script>
+
+    <script type="text/javascript">
+        jQuery.validator.addMethod("arrobaNoInicio", function (value, element) {
+            if (value.indexOf("@") == 0) {
+                return true
+            } else {
+                return false
+            }
+        }, "Tem que ter arroba no começo")
+
+
+        // Adicionando método de validação para CPF
+        $(document).ready(function () {
+            // Adicione o método de validação para o CPF
+            jQuery.validator.addMethod("cpf", function (value, element) {
+                value = jQuery.trim(value);
+
+                value = value.replace('.', '');
+                value = value.replace('.', '');
+                cpf = value.replace('-', '');
+                while (cpf.length < 11) cpf = "0" + cpf;
+                var valido = true;
+                var numeros, digitos, soma, i, resultado, digitos_iguais;
+                digitos_iguais = 1;
+                if (cpf.length < 11) valido = false;
+                for (i = 0; i < cpf.length - 1; i++)
+                    if (cpf.charAt(i) != cpf.charAt(i + 1)) {
+                        digitos_iguais = 0;
+                        break;
+                    }
+                if (!digitos_iguais) {
+                    numeros = cpf.substring(0, 9);
+                    digitos = cpf.substring(9);
+                    soma = 0;
+                    for (i = 10; i > 1; i--) soma += numeros.charAt(10 - i) * i;
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                    if (resultado != digitos.charAt(0)) valido = false;
+                    numeros = cpf.substring(0, 10);
+                    soma = 0;
+                    for (i = 11; i > 1; i--) soma += numeros.charAt(11 - i) * i;
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                    if (resultado != digitos.charAt(1)) valido = false;
+                } else valido = false;
+                return this.optional(element) || valido;
+            }, "Por favor, insira um CPF válido.");
+
+            // Função para limpar o campo de cidade quando o estado é alterado
+            $('#estado').change(function () {
+                $('#cidade').val(''); // Limpa o campo de cidade
+            });
+
+            // Inicialização do plugin de validação
+            $("#formCadastro").validate({
+                rules: {
+                    nome: {
+                        required: true,
+                        maxlength: 100,
+                        minlength: 10,
+                        minWords: 2
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    cpf: {
+                        required: true,
+                        cpf: true // Utiliza o método de validação CPF criado
+                    },
+                    estado: {
+                        required: true
+                    },
+                    cidade: {
+                        required: true
+                    },
+                    idade: {
+                        required: true,
+                        min: 1,
+                        max: 120
+                    },
+                    instagram: {
+                        arrobaNoInicio: true
+                    },
+                    escolaridade: {
+                        required: true,
+                    }
+                },
+                submitHandler: function (form) {
+                    alert("Sucesso");
+                }
+            });
+
+            // Limitar as cidades com base no estado selecionado
+            $('#estado').change(function () {
+                var estadoSelecionado = $(this).val();
+                $('#cidade option').each(function () {
+                    if ($(this).data('estado') !== estadoSelecionado && $(this).val() !== '') {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Validação de formulários com jQuery Validation</h1>
+        <form name="formCadastro" id="formCadastro" method="post">
+            <div class="row">
+                <label>Nome</label>
+                <input type="text" name="nome" id="nome" class="form-control">
+            </div>
+            <div class="row">
+                <label>E-mail</label>
+                <input type="email" name="email" id="email" class="form-control">
+            </div>
+            <div class="row">
+                <label>Estado</label>
+                <select name="estado" id="estado" class="form-control">
+                    <option value="">-----</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="ES">Espírito Santo</option>
+                </select>
+            </div>
+            <div class="row">
+                <label>Cidade</label>
+                <select name="cidade" id="cidade" class="form-control">
+                    <option value="" data-estado="">-----</option>
+                    <option value="RIBEIRAOPIRES" data-estado="SP">Ribeirão Pires</option>
+                    <option value="BELOHORIZONTE" data-estado="MG">Belo Horizonte</option>
+                    <option value="RIODEJANEIRO" data-estado="RJ">Rio de Janeiro</option>
+                    <option value="VITORIA" data-estado="ES">Vitória</option>
+                </select>
+            </div>
+            <div class="row">
+                <label>CPF</label>
+                <input type="text" name="cpf" id="cpf" class="form-control">
+            </div>
+            <div class="row">
+                <label>Escolaridade</label>
+                <select name="escolaridade" id="escolaridade" class="form-control">
+                    <option value="">-----</option>
+                    <option value="FUNDAMENTAL">Fundamental</option>
+                    <option value="MEDIO">Médio</option>
+                    <option value="SUPERIOR">Superior</option>
+                </select>
+            </div>
+            <div class="row">
+                <label>Idade</label>
+                <input type="number" name="idade" id="idade" class="form-control">
+            </div>
+            <div class="row">
+                <label>Instagram</label>
+                <input type="text" name="instagram" id="instagram" class="form-control">
+            </div>
+            <div class="row">
+                <input type="submit" name="enviar" id="enviar" class="btn btn-primary form-control">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

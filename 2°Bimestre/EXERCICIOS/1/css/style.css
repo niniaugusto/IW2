@@ -1,0 +1,16 @@
+.btn {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-left: 23%;
+    padding-right: 27%;
+}
+
+body{
+    padding-left: 31%;
+    padding-right: 19%;
+    background-color: beige;
+}
