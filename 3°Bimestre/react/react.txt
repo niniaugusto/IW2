@@ -1,0 +1,5 @@
+npm init react-app etec-filmes ---> Criar projeto React;
+
+cd etec-filmes && npm start ---> Entrar na pasta e iniciar projeto;
+
+Elementos HTML devem estar dentro de elemento pai para funcionar;
