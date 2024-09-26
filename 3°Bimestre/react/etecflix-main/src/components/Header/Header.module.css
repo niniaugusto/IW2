@@ -1,0 +1,51 @@
+.header {
+    background-color: #000000;
+    color: white;
+    border-bottom: 2px solid red;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 55px;
+    display: flex;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 9999;
+}
+
+.header span {
+    font-size: 2rem;
+    color: red;
+    font-weight: 500;
+}
+
+/* .header nav {
+    margin-right: 1rem;
+} */
+
+.header a {
+    text-decoration: none;
+    color: white;
+    padding-inline: 0.5rem;
+    font-size: 1.125rem;
+}
+
+/* extra01 - resposividade do header */
+@media (max-width: 480px) {
+    .header span {
+        font-size: 1.5rem;
+    }
+    .header a {
+        font-size: 0.95rem;
+        padding-inline: 0.5rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .header span {
+        font-size: 1.5rem;
+    }
+    .header a {
+        font-size: 0.75rem;
+    }
+}

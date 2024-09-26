@@ -1,0 +1,12 @@
+.watch {
+    padding-top: 84px;
+    
+}
+
+/* extra01 - responsividade do video */
+@media (max-width: 1024px) {
+    iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+    }
+}
